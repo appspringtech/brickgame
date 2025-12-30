@@ -90,9 +90,16 @@ function createBrickFromTemplate(e, size, color) {
     offsetX = brickRect.width / 2;
     offsetY = brickRect.height / 2;
     
-    // Position at mouse
-    const x = e.clientX - rect.left - offsetX;
-    const y = e.clientY - rect.top - offsetY;
+    // Position new brick near center of building area
+    const centerX = rect.width / 2 - brickRect.width / 2;
+    const centerY = rect.height / 2 - brickRect.height / 2;
+    
+    // Add some randomness so bricks don't stack exactly on top of each other
+    const randomOffsetX = (Math.random() - 0.5) * 100;
+    const randomOffsetY = (Math.random() - 0.5) * 100;
+    
+    const x = centerX + randomOffsetX;
+    const y = centerY + randomOffsetY;
     
     brick.style.left = x + 'px';
     brick.style.top = y + 'px';

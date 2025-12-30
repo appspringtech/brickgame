@@ -1,8 +1,9 @@
 // Brick Game - Main game logic
 // Designed for 3-year-olds: large blocks, drag and drop, no text, positive feedback
 
-const GRID_SIZE = 30; // Snap-to-grid size in pixels
-const SNAP_THRESHOLD = 40; // How close bricks need to be to snap together
+// Configuration constants optimized for 3-year-old motor skills
+const GRID_SIZE = 30; // Snap-to-grid size in pixels - large enough for easy alignment
+const SNAP_THRESHOLD = 40; // How close bricks need to be to snap together - generous threshold for easier stacking
 
 // Brick types with colors and sizes
 const brickTypes = [
@@ -30,7 +31,12 @@ let brickIdCounter = 0;
 // Sound settings
 let soundEnabled = true;
 
-// Initialize the game
+/**
+ * Initialize the game
+ * - Creates brick templates in the toolbar palette
+ * - Sets up event listeners for drag and drop functionality
+ * - Prepares the building area for brick placement
+ */
 function init() {
     const brickPalette = document.getElementById('brickPalette');
     const buildingArea = document.getElementById('buildingArea');

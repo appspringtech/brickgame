@@ -1,0 +1,29 @@
+{
+  "name": "brickgame",
+  "version": "1.0.0",
+  "description": "A safe, fun brick construction game for 3-year-olds",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build-win": "electron-builder --win"
+  },
+  "keywords": ["game", "kids", "educational", "blocks"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.0"
+  },
+  "build": {
+    "appId": "com.brickgame.app",
+    "productName": "Brick Game",
+    "win": {
+      "target": ["nsis"],
+      "icon": "assets/icon.ico"
+    },
+    "files": [
+      "**/*",
+      "!node_modules/**/*"
+    ]
+  }
+}

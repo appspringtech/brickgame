@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brick Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Toolbar with brick options -->
+        <div class="toolbar">
+            <div class="brick-palette" id="brickPalette">
+                <!-- Brick templates will be added here by JavaScript -->
+            </div>
+        </div>
+        
+        <!-- Building area -->
+        <div class="building-area" id="buildingArea">
+            <div class="sparkle-container" id="sparkleContainer"></div>
+        </div>
+        
+        <!-- Hidden audio elements -->
+        <audio id="placeSound" preload="auto">
+            <source src="sounds/place.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="pickupSound" preload="auto">
+            <source src="sounds/pickup.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="snapSound" preload="auto">
+            <source src="sounds/snap.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+    
+    <script src="game.js"></script>
+</body>
+</html>

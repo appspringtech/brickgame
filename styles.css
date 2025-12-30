@@ -1,0 +1,255 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+    background: linear-gradient(to bottom, #87CEEB 0%, #E0F6FF 100%);
+    cursor: default;
+}
+
+.game-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.toolbar {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 150px;
+}
+
+.brick-palette {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.brick-template {
+    cursor: grab;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    border: 3px solid rgba(0, 0, 0, 0.2);
+}
+
+.brick-template:hover {
+    transform: scale(1.1) translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.brick-template:active {
+    cursor: grabbing;
+}
+
+.building-area {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+.brick {
+    position: absolute;
+    cursor: grab;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    border: 3px solid rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.brick:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+}
+
+.brick:active {
+    cursor: grabbing;
+}
+
+.brick.dragging {
+    opacity: 0.8;
+    z-index: 9999;
+    transform: scale(1.1);
+}
+
+.brick.snapping {
+    animation: snapAnimation 0.3s ease;
+}
+
+@keyframes snapAnimation {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.sparkle {
+    position: absolute;
+    pointer-events: none;
+    font-size: 40px;
+    animation: sparkleAnimation 1s ease-out forwards;
+    z-index: 10000;
+}
+
+@keyframes sparkleAnimation {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(0.5);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--tx), var(--ty)) scale(1.5);
+    }
+}
+
+.sparkle-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10000;
+}
+
+/* Different brick sizes */
+.brick-small {
+    width: 100px;
+    height: 60px;
+}
+
+.brick-medium {
+    width: 150px;
+    height: 60px;
+}
+
+.brick-large {
+    width: 200px;
+    height: 60px;
+}
+
+.brick-square {
+    width: 100px;
+    height: 100px;
+}
+
+.brick-tall {
+    width: 60px;
+    height: 150px;
+}
+
+/* Color classes */
+.brick-red {
+    background: linear-gradient(135deg, #FF6B6B 0%, #EE5A6F 100%);
+}
+
+.brick-blue {
+    background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+}
+
+.brick-green {
+    background: linear-gradient(135deg, #95E1D3 0%, #38D39F 100%);
+}
+
+.brick-yellow {
+    background: linear-gradient(135deg, #FFE66D 0%, #FFBE0B 100%);
+}
+
+.brick-purple {
+    background: linear-gradient(135deg, #B565D8 0%, #9b59b6 100%);
+}
+
+.brick-orange {
+    background: linear-gradient(135deg, #FFA07A 0%, #FF6347 100%);
+}
+
+.brick-pink {
+    background: linear-gradient(135deg, #FFB6D9 0%, #FF85B3 100%);
+}
+
+/* Studs on top of bricks (LEGO-style) */
+.brick::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    height: 40%;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4), transparent 60%);
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+/* Add multiple studs for larger bricks */
+.brick-medium::after,
+.brick-large::after {
+    content: '⬤ ⬤ ⬤';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.2);
+    letter-spacing: 15px;
+    pointer-events: none;
+}
+
+.brick-small::after {
+    content: '⬤ ⬤';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.2);
+    letter-spacing: 10px;
+    pointer-events: none;
+}
+
+.brick-square::after {
+    content: '⬤ ⬤\A⬤ ⬤';
+    white-space: pre;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.2);
+    line-height: 30px;
+    pointer-events: none;
+}
+
+.brick-tall::after {
+    content: '⬤\A⬤\A⬤';
+    white-space: pre;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.2);
+    line-height: 30px;
+    pointer-events: none;
+}
